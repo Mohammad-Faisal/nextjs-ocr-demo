@@ -1,4 +1,4 @@
-import OCRUploader from "@/components/OCRUploader";
+import OCRUploader from "@/components/ocr-uploader";
 
 export default function Home() {
   return (

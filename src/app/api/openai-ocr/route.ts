@@ -31,7 +31,35 @@ export async function POST(request: NextRequest) {
           content: [
             {
               type: "text",
-              text: "Extract and return all text from this image/document. Only return the extracted text, no additional commentary."
+              text: `Extract text from the image/document with high precision. Return a JSON object with the following strictly-defined fields:
+
+              {
+                "idNumber": "",
+                "name": "",
+                "firstName": "",
+                "lastName": "",
+                "dateOfBirth": "",
+                "issueDate": "",
+                "expiryDate": "",
+                "nationality": "",
+                "sex": "",
+                "confidenceScores": {
+                  "overall": 0-100,
+                  "idNumber": 0-100,
+                  "name": 0-100,
+                  "dateOfBirth": 0-100,
+                  "issueDate": 0-100,
+                  "expiryDate": 0-100
+                }
+              }
+
+              Rules:
+              - Populate all fields with extracted data
+              - Leave empty string if field cannot be confidently extracted
+              - Confidence scores represent percentage likelihood of accuracy
+              - Provide an overall confidence score and field-specific scores
+              - Dates should be in ISO 8601 format (YYYY-MM-DD)
+              - Return ONLY the JSON object, no additional text`
             },
             {
               type: "image_url",
@@ -44,6 +72,7 @@ export async function POST(request: NextRequest) {
       ],
       max_tokens: 4096,
       temperature: 0, // More deterministic output
+      response_format: { type: "json_object" }
     });
 
     // Extract text from response

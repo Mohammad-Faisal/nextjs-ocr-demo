@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         source: '/api/check-document',
         destination: 'http://localhost:4000/api/check-document',
       },
+      {
+        source: '/customer/uploadDocuments',
+        destination: 'http://localhost:3000/customer/uploadDocuments',
+      },
     ];
   },
 };

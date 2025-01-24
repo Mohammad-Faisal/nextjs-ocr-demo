@@ -254,6 +254,50 @@ export default function OCRUploader() {
     }
   };
 
+  // const handleUploadDocument = async () => {
+  //   if (!selectedFile) {
+  //     setError('Please select a file first');
+  //     return;
+  //   }
+
+  //   const startTime = performance.now();
+  //   setIsLoading(true);
+  //   setError(null);
+
+  //   try {
+  //     const formData = new FormData();
+  //     console.log(selectedFile);
+  //     formData.append('licenceImage', selectedFile);
+  //     formData.append('doOcr', "true");
+
+  //     const response = await fetch('http://localhost:3000/customer/uploadDocuments', {
+  //       method: 'POST',
+  //       body: formData,
+  //       headers: {
+  //         // 'Content-Type': 'multipart/form-data',
+  //         'Content-Language': 'en',
+  //         'user-id': '66ec173c841ef49663be1672',
+  //         'user-role': 'customer',
+  //         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2NTYwNTRhNzA2M2UwYzMwYjdmOTFhN2QiLCJyb2xlIjoiY3VzdG9tZXIiLCJqd3RJZCI6bnVsbCwiaWF0IjoxNzM2MTYxMzc4LCJleHAiOjE3NDM5MzczNzh9.ParsbmZJSmJJwO6J8n7blOixLjZnDtDhdLVBsUH-jD0'
+  //       }
+  //     });
+      
+  //     const data = await response.json();
+  //     if (!response.ok) {
+  //       throw new Error(data.error || 'Failed to upload document');
+  //     }
+      
+  //     addProcessingTime('Document Upload', startTime);
+  //     // Optionally show success message
+  //     setExtractedText('Document uploaded successfully');
+  //   } catch (err) {
+  //     setError('Error uploading the document. Please try again.');
+  //     console.error(err);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   return (
     <div className="w-full max-w-7xl mx-auto space-y-8">
       {/* Upload Section */}
@@ -296,12 +340,13 @@ export default function OCRUploader() {
         <div className="flex gap-4 justify-center flex-wrap max-w-2xl mx-auto">
           {/* Local Processing */}
           <div className="w-full flex gap-4 justify-center flex-wrap">
+            
             <button
-              onClick={handleOCR}
+              onClick={handleBlurCheck}
               disabled={isLoading}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50"
+              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:opacity-50"
             >
-              Extract Text (Local)
+              Blur Detection
             </button>
             <button
               onClick={handleLocalReadability}
@@ -310,13 +355,22 @@ export default function OCRUploader() {
             >
               Check Readability
             </button>
+
             <button
-              onClick={handleBlurCheck}
+              onClick={handleOCR}
               disabled={isLoading}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:opacity-50"
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50"
             >
-              Check Image Quality
+              Extract Text (Local)
             </button>
+            
+            {/* <button
+              onClick={handleUploadDocument}
+              disabled={isLoading}
+              className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+            >
+              Upload Document
+            </button> */}
           </div>
 
           {/* Cloud Services */}
@@ -328,13 +382,13 @@ export default function OCRUploader() {
             >
               Extract Text (AWS)
             </button>
-            <button
+            {/* <button
               onClick={handleExternalOCR}
               disabled={isLoading}
               className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50"
             >
               Extract Text (External)
-            </button>
+            </button> */}
           </div>
 
           {/* AI Processing */}
